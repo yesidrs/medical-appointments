@@ -1,7 +1,8 @@
 export interface IPet {
+  discharge: string
+  email: string
   name: string
   owner: string
-  email: string
-  discharge: string
   symptoms: string
+  id: string
 }
