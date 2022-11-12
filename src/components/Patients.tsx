@@ -9,7 +9,7 @@ const Patients = ({ pets }: { pets: IPet[] }) => {
         Administra tus <span className="font-bold text-indigo-600">Pacientes y Citas</span>
       </p>
       {pets.map((pet: IPet) => (
-        <Patient pet={pet} />
+        <Patient pet={pet} key={pet.id} />
       ))}
     </div>
   )

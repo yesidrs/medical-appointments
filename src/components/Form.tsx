@@ -1,31 +1,52 @@
 import { useState } from 'react'
 import { IPet } from '../types/pet'
+import Error from './Error'
+import Success from './Success'
 
 const Form = ({ setPets }: { setPets: Function }) => {
   const [pet, setPet] = useState<IPet>({
+    discharge: '',
+    email: '',
     name: '',
     owner: '',
-    email: '',
-    discharge: '',
-    symptoms: ''
+    symptoms: '',
+    id: ''
   })
 
   const [error, setError] = useState(false)
   const [success, setSuccess] = useState(false)
 
-  const { name, owner, email, discharge, symptoms } = pet
+  const { name, owner, email, discharge, symptoms, id } = pet
+
+  const generateId = () => {
+    const id: string = Math.random().toString(36).substring(2)
+    const date: string = Date.now().toString(36)
+    const newId: string = id + date
+
+    return newId
+  }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
+
     setPet({ ...pet, [name]: value })
+
+    if (id === '') {
+      setPet({ ...pet, id: generateId() })
+    }
   }
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+
     if (validateForm()) {
       setError(false)
       setPets((pets: IPet[]) => [...pets, pet])
+      setPet({ name: '', owner: '', email: '', discharge: '', symptoms: '', id: '' })
       setSuccess(true)
+      setTimeout(() => {
+        setSuccess(false)
+      }, 3000)
     }
   }
 
@@ -33,8 +54,9 @@ const Form = ({ setPets }: { setPets: Function }) => {
     const inputValues: string[] = [name, owner, email, discharge, symptoms]
 
     if (inputValues.includes('')) {
-      console.log('All fields are required')
-      return setError(true)
+      setSuccess(false)
+      setError(true)
+      return
     }
 
     return true
@@ -47,19 +69,8 @@ const Form = ({ setPets }: { setPets: Function }) => {
         Añade Pacientes y <span className="text-indigo-600 font-bold">Administralos</span>
       </p>
       <form onSubmit={handleSubmit} className="bg-white shadow-md rounded-lg py-10 px-5">
-        {error && (
-          <div
-            className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-5 rounded-md"
-            role="alert"
-          >
-            Todos los campos son obligatorios
-          </div>
-        )}
-        {success && (
-          <div className="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-5 rounded-md">
-            Paciente añadido correctamente
-          </div>
-        )}
+        {error && <Error msg="Todos los campos son obligatorios" />}
+        {success && <Success msg="Paciente añadido correctamente" />}
         <div className="mb-5">
           <label htmlFor="pet" className="block text-gray-700 uppercase font-bold">
             nombre mascota
