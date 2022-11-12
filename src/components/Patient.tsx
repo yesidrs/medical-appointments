@@ -1,25 +1,24 @@
-const Patient = () => {
+import { IPet } from '../types/pet'
+
+const Patient = ({ pet }: { pet: IPet }) => {
+  const { name, owner, email, discharge, symptoms } = pet
+
   return (
-    <div className="m-3 bg-white shadow-md px-5 py-10 rounded-xl">
+    <div className="mb-5 md:ml-5 bg-white shadow-md px-5 py-10 rounded-xl">
       <p className="font-bold mb-3 text-gray-700 uppercase">
-        Nombre: <span className="font-normal normal-case">Wanda</span>
+        Nombre: <span className="font-normal normal-case">{name}</span>
       </p>
       <p className="font-bold mb-3 text-gray-700 uppercase">
-        Propietario: <span className="font-normal normal-case">Yesid Rodelo</span>
+        Propietario: <span className="font-normal normal-case">{owner}</span>
       </p>
       <p className="font-bold mb-3 text-gray-700 uppercase">
-        Email: <span className="font-normal normal-case">yesidrodelo@gmail.com</span>
+        Email: <span className="font-normal normal-case">{email}</span>
       </p>
       <p className="font-bold mb-3 text-gray-700 uppercase">
-        Fecha de Alta: <span className="font-normal normal-case">Wanda</span>
+        Fecha de Alta: <span className="font-normal normal-case">{discharge}</span>
       </p>
       <p className="font-bold mb-3 text-gray-700 uppercase">
-        Síntomas:{' '}
-        <span className="font-normal normal-case">
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsum autem blanditiis illo
-          consectetur provident, cumque quaerat sit corporis culpa repellat, assumenda quae.
-          Dignissimos, ea deserunt at repudiandae a repellat nostrum.
-        </span>
+        Síntomas: <span className="font-normal normal-case">{symptoms}</span>
       </p>
     </div>
   )
