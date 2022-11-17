@@ -1,22 +1,29 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { IPet } from '../types/pet'
 import Error from './Error'
 import Success from './Success'
 
-const Form = ({ setPets }: { setPets: Function }) => {
-  const [pet, setPet] = useState<IPet>({
-    discharge: '',
-    email: '',
-    name: '',
-    owner: '',
-    symptoms: '',
-    id: ''
-  })
-
+const Form = ({
+  pet,
+  setPet,
+  setPets,
+  isEditing
+}: {
+  pet: IPet
+  setPet: Function
+  setPets: Function
+  isEditing: boolean
+}) => {
   const [error, setError] = useState(false)
   const [success, setSuccess] = useState(false)
 
   const { name, owner, email, discharge, symptoms, id } = pet
+
+  useEffect(() => {
+    if (id === '') {
+      setPet({ ...pet, id: generateId() })
+    }
+  }, [id])
 
   const generateId = () => {
     const id: string = Math.random().toString(36).substring(2)
@@ -30,20 +37,19 @@ const Form = ({ setPets }: { setPets: Function }) => {
     const { name, value } = e.target
 
     setPet({ ...pet, [name]: value })
-
-    if (id === '') {
-      setPet({ ...pet, id: generateId() })
-    }
   }
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
     if (validateForm()) {
       setError(false)
+
       setPets((pets: IPet[]) => [...pets, pet])
       setPet({ name: '', owner: '', email: '', discharge: '', symptoms: '', id: '' })
+
       setSuccess(true)
+
       setTimeout(() => {
         setSuccess(false)
       }, 3000)
@@ -144,7 +150,7 @@ const Form = ({ setPets }: { setPets: Function }) => {
           className="bg-indigo-600 w-full p-3 text-white uppercase font-bold rounded-md 
           hover:bg-indigo-700 cursor-pointer transition-colors"
         >
-          Agregar Paciente
+          {isEditing ? 'Editar Paciente' : 'Agregar Paciente'}
         </button>
       </form>
     </div>
