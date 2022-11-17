@@ -1,7 +1,17 @@
 import { IPet } from '../types/pet'
 import Patient from './Patient'
 
-const Patients = ({ pets }: { pets: IPet[] }) => {
+const Patients = ({
+  pets,
+  setPet,
+  setPets,
+  setIsEditing
+}: {
+  pets: IPet[]
+  setPet: Function
+  setPets: Function
+  setIsEditing: Function
+}) => {
   return (
     <div className="w-11/12 md:w-1/2 lg:w-3/5 md:h-screen overflow-y-auto">
       {pets && pets.length > 0 ? (
@@ -21,7 +31,14 @@ const Patients = ({ pets }: { pets: IPet[] }) => {
         </>
       )}
       {pets.map((pet: IPet) => (
-        <Patient pet={pet} key={pet.id} />
+        <Patient
+          pet={pet}
+          pets={pets}
+          setPet={setPet}
+          setPets={setPets}
+          setIsEditing={setIsEditing}
+          key={pet.id}
+        />
       ))}
     </div>
   )
