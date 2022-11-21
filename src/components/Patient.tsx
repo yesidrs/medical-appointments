@@ -1,12 +1,27 @@
 import { IPet } from '../types/pet'
 
-const Patient = ({ pet, setPets }: { pet: IPet; setPets: Function }) => {
+const Patient = ({
+  pet,
+  pets,
+  setPet,
+  setPets,
+  setIsEditing
+}: {
+  pet: IPet
+  pets: IPet[]
+  setPet: Function
+  setPets: Function
+  setIsEditing: Function
+}) => {
   const { name, owner, email, discharge, symptoms, id } = pet
 
+  const handleEdit = () => {
+    setIsEditing(true)
+    setPet(pet)
+  }
+
   const handleDelete = () => {
-    if (window.confirm('Are you sure you want to delete this patient?')) {
-      setPets((pets: IPet[]) => pets.filter((pet: IPet) => pet.id === id))
-    }
+    const petToDelet = pets.map((pet) => pet.id).indexOf(id)
   }
 
   return (
@@ -26,18 +41,19 @@ const Patient = ({ pet, setPets }: { pet: IPet; setPets: Function }) => {
       <p className="font-bold mb-3 text-gray-700 uppercase">
         Síntomas: <span className="font-normal normal-case">{symptoms}</span>
       </p>
-      <div className="flex justify-between text-sm mt-5">
+      <div className="flex justify-end text-sm mt-5">
         <button
           className="uppercase bg-indigo-600 text-white font-bold py-2 px-8 rounded-md 
           hover:bg-indigo-700 cursor-pointer transition-colors"
+          onClick={handleEdit}
         >
-          editar
+          edit
         </button>
         <button
-          className="uppercase bg-red-600 text-white font-bold py-2 px-5 rounded-md 
+          className="uppercase bg-red-600 text-white font-bold py-2 px-5 ml-5 rounded-md 
           hover:bg-red-700 cursor-pointer transition-colors"
         >
-          eliminar
+          delete
         </button>
       </div>
     </div>

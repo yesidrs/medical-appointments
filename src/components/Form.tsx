@@ -70,16 +70,16 @@ const Form = ({
 
   return (
     <div className="w-11/12 md:w-1/2 lg:w-2/5 mb-10">
-      <h2 className="font-black text-3xl text-center">Seguimiento Pacientes</h2>
+      <h2 className="font-black text-3xl text-center">Patients Follow-up</h2>
       <p className="text-lg mt-5 mb-10 text-center">
-        Añade Pacientes y <span className="text-indigo-600 font-bold">Administralos</span>
+        Add Patients and <span className="text-indigo-600 font-bold">Manage Them</span>
       </p>
       <form onSubmit={handleSubmit} className="bg-white shadow-md rounded-lg py-10 px-5">
-        {error && <Error msg="Todos los campos son obligatorios" />}
-        {success && <Success msg="Paciente añadido correctamente" />}
+        {error && <Error msg="All fields are required" />}
+        {success && <Success msg="Patient added successfully" />}
         <div className="mb-5">
           <label htmlFor="pet" className="block text-gray-700 uppercase font-bold">
-            nombre mascota
+            Pet's Name
           </label>
           <input
             className="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md"
@@ -93,7 +93,7 @@ const Form = ({
         </div>
         <div className="mb-5">
           <label htmlFor="owner" className="block text-gray-700 uppercase font-bold">
-            nombre propietario
+            Owner's Name
           </label>
           <input
             className="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md"
@@ -121,7 +121,7 @@ const Form = ({
         </div>
         <div className="mb-5">
           <label htmlFor="discharge" className="block text-gray-700 uppercase font-bold">
-            Fecha de Alta
+            Discharge Date
           </label>
           <input
             className="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md"
@@ -134,7 +134,7 @@ const Form = ({
         </div>
         <div className="mb-5">
           <label htmlFor="symptoms" className="block text-gray-700 uppercase font-bold">
-            Síntomas
+            Symptoms
           </label>
           <textarea
             id="symptoms"
@@ -150,7 +150,7 @@ const Form = ({
           className="bg-indigo-600 w-full p-3 text-white uppercase font-bold rounded-md 
           hover:bg-indigo-700 cursor-pointer transition-colors"
         >
-          {isEditing ? 'Editar Paciente' : 'Agregar Paciente'}
+          {isEditing ? 'Edit Patient' : 'Add Patient'}
         </button>
       </form>
     </div>
