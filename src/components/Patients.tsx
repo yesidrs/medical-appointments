@@ -4,13 +4,11 @@ import Patient from './Patient'
 const Patients = ({
   pets,
   setPet,
-  setPets,
-  setIsEditing
+  setPets
 }: {
   pets: IPet[]
   setPet: Function
   setPets: Function
-  setIsEditing: Function
 }) => {
   return (
     <div className="w-11/12 md:w-1/2 lg:w-3/5 md:h-screen overflow-y-auto">
@@ -31,14 +29,7 @@ const Patients = ({
         </>
       )}
       {pets.map((pet: IPet) => (
-        <Patient
-          pet={pet}
-          pets={pets}
-          setPet={setPet}
-          setPets={setPets}
-          setIsEditing={setIsEditing}
-          key={pet.id}
-        />
+        <Patient pet={pet} pets={pets} setPet={setPet} setPets={setPets} key={pet.id} />
       ))}
     </div>
   )

@@ -15,14 +15,13 @@ function App() {
     symptoms: '',
     id: ''
   })
-  const [isEditing, setIsEditing] = useState(false)
 
   return (
     <div className="container mx-auto mt-12">
       <Header />
       <div className="mt-12 flex flex-col max-sm:items-center md:flex-row">
-        <Form pet={pet} setPet={setPet} setPets={setPets} isEditing={isEditing} />
-        <Patients pets={pets} setPet={setPet} setPets={setPets} setIsEditing={setIsEditing} />
+        <Form pet={pet} pets={pets} setPet={setPet} setPets={setPets} />
+        <Patients pets={pets} setPet={setPet} setPets={setPets} />
       </div>
     </div>
   )
