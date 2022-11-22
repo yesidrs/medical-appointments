@@ -1,37 +1,23 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { IPet } from '../types/pet'
 import Error from './Error'
 import Success from './Success'
 
 const Form = ({
   pet,
+  pets,
   setPet,
-  setPets,
-  isEditing
+  setPets
 }: {
   pet: IPet
+  pets: IPet[]
   setPet: Function
   setPets: Function
-  isEditing: boolean
 }) => {
   const [error, setError] = useState(false)
   const [success, setSuccess] = useState(false)
 
   const { name, owner, email, discharge, symptoms, id } = pet
-
-  useEffect(() => {
-    if (id === '') {
-      setPet({ ...pet, id: generateId() })
-    }
-  }, [id])
-
-  const generateId = () => {
-    const id: string = Math.random().toString(36).substring(2)
-    const date: string = Date.now().toString(36)
-    const newId: string = id + date
-
-    return newId
-  }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
@@ -42,17 +28,12 @@ const Form = ({
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    if (validateForm()) {
-      setError(false)
+    if (validateForm() && pet.id !== '') {
+      editPatient()
+    }
 
-      setPets((pets: IPet[]) => [...pets, pet])
-      setPet({ name: '', owner: '', email: '', discharge: '', symptoms: '', id: '' })
-
-      setSuccess(true)
-
-      setTimeout(() => {
-        setSuccess(false)
-      }, 3000)
+    if (validateForm() && pet.id === '') {
+      addPatient()
     }
   }
 
@@ -66,6 +47,38 @@ const Form = ({
     }
 
     return true
+  }
+
+  const generateId = () => {
+    const id: string = Math.random().toString(36).substring(2)
+    const date: string = Date.now().toString(36)
+    const newId: string = id + date
+
+    return newId
+  }
+
+  const addPatient = () => {
+    setError(false)
+
+    pet.id = generateId()
+    cleanFiles()
+    setPets((pets: IPet[]) => [...pets, pet])
+
+    setSuccess(true)
+
+    setTimeout(() => {
+      setSuccess(false)
+    }, 3000)
+  }
+
+  const editPatient = () => {
+    const patientsUpdated = pets.map((petState) => (petState.id === id ? pet : petState))
+    setPets(patientsUpdated)
+    cleanFiles()
+  }
+
+  const cleanFiles = () => {
+    setPet({ name: '', owner: '', email: '', discharge: '', symptoms: '', id: '' })
   }
 
   return (
@@ -150,7 +163,7 @@ const Form = ({
           className="bg-indigo-600 w-full p-3 text-white uppercase font-bold rounded-md 
           hover:bg-indigo-700 cursor-pointer transition-colors"
         >
-          {isEditing ? 'Edit Patient' : 'Add Patient'}
+          {id ? 'Edit Patient' : 'Add Patient'}
         </button>
       </form>
     </div>

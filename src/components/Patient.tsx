@@ -4,24 +4,22 @@ const Patient = ({
   pet,
   pets,
   setPet,
-  setPets,
-  setIsEditing
+  setPets
 }: {
   pet: IPet
   pets: IPet[]
   setPet: Function
   setPets: Function
-  setIsEditing: Function
 }) => {
   const { name, owner, email, discharge, symptoms, id } = pet
 
   const handleEdit = () => {
-    setIsEditing(true)
     setPet(pet)
   }
 
-  const handleDelete = () => {
-    const petToDelet = pets.map((pet) => pet.id).indexOf(id)
+  const deletePatient = () => {
+    const patientsDeleted = pets.filter((petState) => petState.id !== id)
+    setPets(patientsDeleted)
   }
 
   return (
@@ -52,6 +50,7 @@ const Patient = ({
         <button
           className="uppercase bg-red-600 text-white font-bold py-2 px-5 ml-5 rounded-md 
           hover:bg-red-700 cursor-pointer transition-colors"
+          onClick={deletePatient}
         >
           delete
         </button>
