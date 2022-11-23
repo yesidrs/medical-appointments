@@ -72,7 +72,7 @@ const Form = ({
   }
 
   const editPatient = () => {
-    const patientsUpdated = pets.map((petState) => (petState.id === id ? pet : petState))
+    const patientsUpdated = pets.map((petOld) => (petOld.id === id ? pet : petOld))
     setPets(patientsUpdated)
     cleanFiles()
   }
