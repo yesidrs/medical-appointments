@@ -18,8 +18,10 @@ const Patient = ({
   }
 
   const deletePatient = () => {
-    const patientsDeleted = pets.filter((petState) => petState.id !== id)
-    setPets(patientsDeleted)
+    if (confirm('Are you sure you want to delete this patient?')) {
+      const patientsDeleted = pets.filter((pet) => pet.id !== id)
+      setPets(patientsDeleted)
+    }
   }
 
   return (
