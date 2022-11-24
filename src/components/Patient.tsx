@@ -8,8 +8,8 @@ const Patient = ({
 }: {
   pet: IPet
   pets: IPet[]
-  setPet: Function
-  setPets: Function
+  setPet: React.Dispatch<React.SetStateAction<IPet>>
+  setPets: React.Dispatch<React.SetStateAction<IPet[]>>
 }) => {
   const { name, owner, email, discharge, symptoms, id } = pet
 
@@ -43,14 +43,14 @@ const Patient = ({
       </p>
       <div className="flex justify-end text-sm mt-5">
         <button
-          className="uppercase bg-indigo-600 text-white font-bold py-2 px-8 rounded-md 
+          className="uppercase bg-indigo-600 text-white font-bold py-2 px-8 rounded-md
           hover:bg-indigo-700 cursor-pointer transition-colors"
           onClick={handleEdit}
         >
           edit
         </button>
         <button
-          className="uppercase bg-red-600 text-white font-bold py-2 px-5 ml-5 rounded-md 
+          className="uppercase bg-red-600 text-white font-bold py-2 px-5 ml-5 rounded-md
           hover:bg-red-700 cursor-pointer transition-colors"
           onClick={deletePatient}
         >

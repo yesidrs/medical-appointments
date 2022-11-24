@@ -11,8 +11,8 @@ const Form = ({
 }: {
   pet: IPet
   pets: IPet[]
-  setPet: Function
-  setPets: Function
+  setPet: React.Dispatch<React.SetStateAction<IPet>>
+  setPets: React.Dispatch<React.SetStateAction<IPet[]>>
 }) => {
   const [error, setError] = useState(false)
   const [success, setSuccess] = useState(false)
@@ -160,7 +160,7 @@ const Form = ({
         </div>
         <button
           type="submit"
-          className="bg-indigo-600 w-full p-3 text-white uppercase font-bold rounded-md 
+          className="bg-indigo-600 w-full p-3 text-white uppercase font-bold rounded-md
           hover:bg-indigo-700 cursor-pointer transition-colors"
         >
           {id ? 'Edit Patient' : 'Add Patient'}

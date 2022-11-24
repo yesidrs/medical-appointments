@@ -7,8 +7,8 @@ const Patients = ({
   setPets
 }: {
   pets: IPet[]
-  setPet: Function
-  setPets: Function
+  setPet: React.Dispatch<React.SetStateAction<IPet>>
+  setPets: React.Dispatch<React.SetStateAction<IPet[]>>
 }) => {
   return (
     <div className="w-11/12 md:w-1/2 lg:w-3/5 md:h-screen overflow-y-auto">
